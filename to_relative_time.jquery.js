@@ -1,4 +1,4 @@
-$(function() {
+(function($) {
     /*
      * A handy jQuery wrapper for converting tags with JavaScript parse()-able
      * time-stamps into relative time strings.
@@ -13,10 +13,10 @@ $(function() {
      *
      * Requires date.extensions.js to be loaded first.
      */
-    $fn.toRelativeTime = function {
+    $.fn.toRelativeTime = function() {
       this.each(function() {
-        var elem = $(this);
-        elem.text(Date.fromString(elem.html()).toRelativeTime());
+        var $this = $(this);
+        $this.text(Date.fromString($this.html()).toRelativeTime());
       });
     }
-  });
+  })(jQuery);
