@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>Test for toRelativeDate - jQuery 1.2.6</title>
+    <script type="text/javascript" charset="utf-8" src="jquery-1.2.6.js"></script>
+    <script type="text/javascript" charset="utf-8" src="date.extensions.js"></script>
+    <script type="text/javascript" charset="utf-8" src="to_relative_time.jquery.js"></script>
+  </head>
+  <body>
+    <p>Should be "X milliseconds or seconds ago": <span class="rel" id="500_milliseconds_ago">0</span></p>
+    <p>Should be "45 minutes ago": <span class="rel" id="45_minutes_ago">1</span></p>
+    <p>Should be "2 hours ago": <span class="rel" id="2_hours_ago">2</span></p>
+    <p>Should be "2 days ago": <span class="rel" id="2_days_ago">3</span></p>
+    <p>Should be "1 month ago": <span class="rel" id="1_month_ago">4</span></p>
+    <p>Should be "3 years ago": <span class="rel" id="3_years_ago">5</span></p>
+
+    <script type="text/javascript" charset="utf-8">
+      <!--
+      $(function() {
+        // Setup
+        var now = new Date();
+
+        $("#500_milliseconds_ago").text(new Date(now.valueOf() - 500).toString());
+        $("#45_minutes_ago").text(new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() - 45).toString());
+        $("#2_hours_ago").text(new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() - 2).toString());
+        $("#2_days_ago").text(new Date(now.getFullYear(), now.getMonth(), now.getDate() - 2).toString());
+        $("#1_month_ago").text(new Date(now.getFullYear(), now.getMonth() - 1, now.getDate()).toString());
+        $("#3_years_ago").text(new Date(now.getFullYear() - 3, now.getMonth(), now.getDate()).toString());
+
+
+
+        $("span.rel").toRelativeTime();
+      });
+      //-->
+    </script>
+  </body>
+</html>
