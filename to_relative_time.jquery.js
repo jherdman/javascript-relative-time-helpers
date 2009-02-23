@@ -18,5 +18,5 @@
         var $this = $(this);
         $this.text(Date.fromString($this.html()).toRelativeTime());
       });
-    }
+    };
   })(jQuery);
