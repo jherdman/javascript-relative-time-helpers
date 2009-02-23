@@ -16,7 +16,7 @@ $(function() {
     $fn.toRelativeTime = function {
       this.each(function() {
         var elem = $(this);
-        elem.text(Date.fromString(e.html()).toRelativeTime());
+        elem.text(Date.fromString(elem.html()).toRelativeTime());
       });
     }
   });
