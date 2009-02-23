@@ -13,7 +13,7 @@ Date.prototype.toRelativeTime = function() {
     day:    24,     // hour  -> day
     month:  30,     // day   -> month (roughly)
     year:   12      // month -> year
-  }
+  };
 
   for(var key in conversions) {
     if(delta < conversions[key]) {
@@ -26,9 +26,9 @@ Date.prototype.toRelativeTime = function() {
 
   // pluralize a unit when the difference is greater than 1.
   delta = Math.floor(delta);
-  if(delta != 1) units += "s";
+  if(delta !== 1) { units += "s"; }
   return [delta, units, "ago"].join(" ");
-}
+};
 
 /*
  * Wraps up a common pattern used with this plugin whereby you take a String 
@@ -36,4 +36,4 @@ Date.prototype.toRelativeTime = function() {
  */
 Date.fromString = function(str) {
   return new Date(Date.parse(str));
-}
+};
