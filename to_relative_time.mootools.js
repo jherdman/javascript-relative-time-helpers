@@ -3,5 +3,5 @@ window.addEvent("domready", function() {
     $each(elems, function(elem) {
       elem.set("text", Date.fromString(elem.get("text")).toRelativeTime());
     });
-  }
+  };
 });
