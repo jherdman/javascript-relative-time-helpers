@@ -50,5 +50,5 @@ When using the plugin, you must first include the Date extensions.
 Supported Frameworks
 --------------------
 
-* jQuery (1.2.6)
+* jQuery (1.2.6, 1.3.2)
 * Mootools (1.2.1)
