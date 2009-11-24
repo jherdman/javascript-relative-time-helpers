@@ -25,11 +25,13 @@ Date.prototype.toRelativeTime = function(now_threshold) {
 
   now_threshold = parseInt(now_threshold, 10);
 
-  if (isNaN(now_threshold))
+  if (isNaN(now_threshold)) {
     now_threshold = 0;
+  }
 
-  if (delta <= now_threshold)
+  if (delta <= now_threshold) {
     return 'Just now';
+  }
 
   var units = null;
   var conversions = {
