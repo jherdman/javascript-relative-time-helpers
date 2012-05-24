@@ -88,7 +88,7 @@
         dayDiff = weekday - now.getDay();
     if (dayDiff == 0)       day = 'Today';
     else if (dayDiff == -1) day = 'Yesterday';
-    else if (dayDiff == 1)  day = 'Tomorrow';
+    else if (dayDiff == 1 && date > now)  day = 'Tomorrow';
     else                    day = WEEKDAYS[weekday];
     return day + " at " + date.toLocaleTimeString();
   };
