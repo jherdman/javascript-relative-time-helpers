@@ -26,7 +26,10 @@
  *               or weekdays along with time, e.g. "Thursday at 15:10:34"
  *               rather than "4 days ago" or "Tomorrow at 20:12:01"
  *               instead of "1 day from now"
- *
+ * - texts - If provided it will be the source of all texts used for creation
+ *           of time difference text, it should also provide pluralization function
+ *           which will be feed up with time units 
+ *               
  * If a single number is given as argument, it is interpreted as nowThreshold:
  *
  * // One second ago, now setting a now_threshold to 5 seconds
@@ -44,16 +47,17 @@
     var opts = processOptions(options);
 
     var now = opts.now || new Date();
+    var texts = opts.texts || TEXTS;
     var delta = now - this;
     var future = (delta <= 0);
     delta = Math.abs(delta);
 
     // special cases controlled by options
     if (delta <= opts.nowThreshold) {
-      return future ? 'Right now' : 'Just now';
+      return future ? texts.right_now : texts.just_now;
     }
     if (opts.smartDays && delta <= 6 * MS_IN_DAY) {
-      return toSmartDays(this, now);
+      return toSmartDays(this, now, texts);
     }
 
     var units = null;
@@ -66,8 +70,8 @@
 
     // pluralize a unit when the difference is greater than 1.
     delta = Math.floor(delta);
-    if (delta !== 1) { units += "s"; }
-    return [delta, units, future ? "from now" : "ago"].join(" ");
+    units = texts.pluralize(delta, units);
+    return [delta, units, future ? texts.from_now : texts.ago].join(" ");
   };
 
   var processOptions = function(arg) {
@@ -82,15 +86,16 @@
     return arg;
   };
 
-  var toSmartDays = function(date, now) {
+  var toSmartDays = function(date, now, texts) {
     var day;
     var weekday = date.getDay(),
         dayDiff = weekday - now.getDay();
-    if (dayDiff == 0)       day = 'Today';
-    else if (dayDiff == -1) day = 'Yesterday';
-    else if (dayDiff == 1 && date > now)  day = 'Tomorrow';
-    else                    day = WEEKDAYS[weekday];
-    return day + " at " + date.toLocaleTimeString();
+    if (dayDiff == 0)       day = texts.today;
+    else if (dayDiff == -1) day = texts.yesterday;
+    else if (dayDiff == 1 && date > now)  
+                            day = texts.tomorrow;
+    else                    day = texts.days[weekday];
+    return day + " " + texts.at + " " + date.toLocaleTimeString();
   };
 
   var CONVERSIONS = {
@@ -102,12 +107,27 @@
     month:  30,     // day   -> month (roughly)
     year:   12      // month -> year
   };
+  
   var MS_IN_DAY = (CONVERSIONS.millisecond * CONVERSIONS.second * CONVERSIONS.minute * CONVERSIONS.hour * CONVERSIONS.day);
 
   var WEEKDAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
+  var TEXTS = {today:        'Today', 
+               yesterday:    'Yesterday', 
+               tomorrow:     'Tomorrow',
+               at:           'at',
+               from_now:     'from now',
+               ago:          'ago',
+               right_now:    'Right now',
+               just_now:     'Just now',
+               days:         WEEKDAYS,
+               pluralize:    function(val, text) {
+                                if(val > 1)
+                                    return text + "s";
+                                return text;
+                             }
+               };
   return _;
-
 })();
 
 
